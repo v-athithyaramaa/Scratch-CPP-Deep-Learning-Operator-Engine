@@ -1,0 +1,23 @@
+[Input: 1x3x32x32]
+       │
+       ▼
+1. Stem Block: Conv2D (3->32, k=3, s=1, p=1) -> BatchNorm -> ReLU  ──> [Shape: 1x32x32x32]
+       │
+       ▼
+2. Downsample 1: Conv2D (32->64, k=3, s=2, p=1) -> BatchNorm -> ReLU ──> [Shape: 1x64x16x16]
+       │
+       ├─── (Cache this buffer: "skip_residual")
+       ▼
+3. ResBlock Layer 1: Conv2D (64->64, k=3, s=1, p=1) -> BatchNorm -> ReLU
+       │
+       ▼
+4. ResBlock Layer 2: Conv2D (64->64, k=3, s=1, p=1) -> BatchNorm
+       │
+       ▼
+5. Residual Add: Output of Layer 2 + "skip_residual" -> ReLU ──> [Shape: 1x64x16x16]
+       │
+       ▼
+6. Downsample 2: Conv2D (64->128, k=3, s=2, p=1) -> BatchNorm -> ReLU ──> [Shape: 1x128x8x8]
+       │
+       ▼
+7. Classification Head: GAP (-> 1x128x1x1) -> Linear/FC (128->10) -> Softmax ──> [Shape: 1x10]
