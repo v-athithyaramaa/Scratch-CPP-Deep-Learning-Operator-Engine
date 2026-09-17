@@ -1,0 +1,25 @@
+build/
+bin/
+*.exe
+*.out
+*.dll
+*.so
+*.dylib
+*.a
+*.lib
+
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+DL Assignment 2 Report.docx
+
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+data/output/*.bin
+!data/output/.gitkeep
